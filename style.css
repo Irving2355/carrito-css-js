@@ -55,6 +55,20 @@ header{
     cursor: pointer;
 }
 
+section{
+    padding: 4rem 0 3.5rem;
+}
+
+.section-title{
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.shop{
+    margin-top: 2rem;
+}
+
 
 
 
