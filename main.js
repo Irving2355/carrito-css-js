@@ -34,6 +34,13 @@ function ready(){
         input.addEventListener("change", quantityChanged);
     }
     
+    /*Agregar al carrito*/
+    var addCart = document.getElementsByClassName("add-cart");
+    for(var i=0; i< addCart.length; i++){
+        var button = addCart[i];
+        button.addEventListener("click", addCartClicked);
+    }
+    
 }
 
 function quantityChanged(event){
@@ -69,6 +76,43 @@ function updatetotal(){
     }
 }
 
+function addCartClicked(event){
+    var button = event.target;
+    var shopProducts = button.parentElement;
+    var title = shopProducts.getElementsByClassName("product-title")[0].innerText;
+    
+    var price = shopProducts.getElementsByClassName("price")[0].innerText;
+    
+    var productImg = shopProducts.getElementsByClassName("product-img")[0].src;
+    
+    addProductToCart(title,price,productImg);
+    updatetotal();
+}
+
+function addProductToCart(title,price,productImg){
+    var cartShopBox = document.createElement("div");
+    cartShopBox.classList.add('cart-box');
+    var cartItems = document.getElementsByClassName("cart-content")[0];
+    var cartItemsNames = cartItems.getElementsByClassName("cart-product-title");
+    for(var i=0; i<cartItemsNames.length; i++){
+        if(cartItemsNames[i].innerText == title){
+            alert("Ya existe el producto");
+            return;
+        }
+    }
+    
+    var cartBoxContent = `
+            <img src="img/img2.jpg" alt="" class="cart-img">
+            <div class="detail-box">
+            <div class="cart-product-title">Producto 2</div>
+            <div class="cart-price">$200.26</div>
+            <input type="number" value="1" class="cart-quantity">
+            </div>
+            <!--Boton de para borrar algun producto-->
+            <i class='bx bx-trash cart-remove'></i>`;
+    cartShopBox.innerHTML = cartBoxContent;
+    cartItems.append(cartShopBox);
+}
 
 
 
