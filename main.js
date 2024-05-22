@@ -41,6 +41,18 @@ function ready(){
         button.addEventListener("click", addCartClicked);
     }
     
+    /*Boton de comprar*/
+    document.getElementsByClassName("btn-buy")[0].addEventListener("click", buyButtonClicked);
+    
+}
+
+function buyButtonClicked(){
+    alert("Orden realizada");
+    var cartContent = document.getElementsByClassName("cart-content")[0];
+    while(cartContent.hasChildNodes()){
+        cartContent.removeChild(cartContent.firstChild);
+    }
+    updatetotal();
 }
 
 function quantityChanged(event){
@@ -70,10 +82,12 @@ function updatetotal(){
         var price = parseFloat(priceElement.innerText.replace("$",""));
         var quantity = quantityElement.value;
         total = total + (price * quantity);
+      }/*Aqui la coloque*/
+    
         total = Math.round(total * 100) / 100;
         
         document.getElementsByClassName("total-price")[0].innerText = "$" + total;/*cambio*/
-    }
+    
 }
 
 function addCartClicked(event){
@@ -102,16 +116,21 @@ function addProductToCart(title,price,productImg){
     }
     
     var cartBoxContent = `
-            <img src="img/img2.jpg" alt="" class="cart-img">
+            <img src="${productImg}" alt="" class="cart-img">
             <div class="detail-box">
-            <div class="cart-product-title">Producto 2</div>
-            <div class="cart-price">$200.26</div>
+            <div class="cart-product-title">${title}</div>
+            <div class="cart-price">${price}</div>
             <input type="number" value="1" class="cart-quantity">
             </div>
             <!--Boton de para borrar algun producto-->
             <i class='bx bx-trash cart-remove'></i>`;
+    
     cartShopBox.innerHTML = cartBoxContent;
     cartItems.append(cartShopBox);
+    
+    cartShopBox.getElementsByClassName("cart-remove")[0].addEventListener("click", removeCartItem);
+    
+    cartShopBox.getElementsByClassName("cart-quantity")[0].addEventListener("click", quantityChanged);
 }
 
 
